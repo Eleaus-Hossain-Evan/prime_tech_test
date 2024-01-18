@@ -39,6 +39,7 @@ class CategoryScreen extends HookConsumerWidget {
         children: [
           gap16,
           Row(
+            crossAxisAlignment: crossStart,
             children: [
               "Search product"
                   .text
@@ -57,12 +58,13 @@ class CategoryScreen extends HookConsumerWidget {
             child: Padding(
               padding: (20, 0, 20, 20).padding,
               child: Row(
+                crossAxisAlignment: crossStart,
                 children: [
                   Container(
                     width: 80,
                     clipBehavior: Clip.antiAlias,
                     decoration: BoxDecoration(
-                      color: AppColors.white,
+                      color: state.isLoading ? null : AppColors.white,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: state.when(
@@ -100,7 +102,9 @@ class CategoryScreen extends HookConsumerWidget {
                             error: error, stackTrace: stackTrace);
                         return Text(error.toString());
                       },
-                      loading: () => const CircularProgressIndicator(),
+                      loading: () => SizedBox.square(
+                        child: const CircularProgressIndicator().p20(),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -108,6 +112,7 @@ class CategoryScreen extends HookConsumerWidget {
                       padding: const EdgeInsets.only(left: 16),
                       child: Column(
                         crossAxisAlignment: crossStart,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           "Products"
                               .text
@@ -157,7 +162,8 @@ class CategoryScreen extends HookConsumerWidget {
                                   error: error, stackTrace: stackTrace);
                               return Text(error.toString());
                             },
-                            loading: () => const CircularProgressIndicator(),
+                            loading: () => const Center(
+                                child: CircularProgressIndicator()),
                           ),
                         ],
                       ),
