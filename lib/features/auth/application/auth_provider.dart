@@ -1,14 +1,9 @@
-import 'dart:io';
-
 // ignore: unused_import
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mime/mime.dart';
 
 import '../../../core/core.dart';
-import '../../profile/domain/change_password_body.dart';
-import '../../profile/domain/profile_update_body.dart';
 import '../domain/model/user_model.dart';
 import '../domain/signup_body.dart';
 import '../infastructure/auth_repo.dart';
@@ -120,64 +115,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
       // return state.copyWith(loading: false, user: user);
       return state;
     });
-  }
-
-  Future<bool> updateProfile({
-    required String name,
-    required String email,
-    required String phone,
-    required String information,
-    File? avatar,
-  }) async {
-    bool success = false;
-    state = state.copyWith(loading: true);
-
-    final imageString = Uri.dataFromBytes(
-      avatar?.readAsBytesSync() ?? [],
-      mimeType: lookupMimeType(avatar?.path ?? '') ?? '',
-    ).toString();
-
-    final body = ProfileUpdateBody(
-      name: name,
-      email: email,
-      phone: phone,
-      information: information,
-      avatar: avatar != null ? imageString : '',
-    );
-
-    // Logger.d('body: ${body.toJson()}', tag: 'updateProfile');
-
-    final result = await repo.updateProfile(body);
-
-    state = result.fold((l) {
-      showErrorToast(l.error.message);
-      return state.copyWith(loading: false);
-    }, (r) {
-      showToast("Profile Updated Successfully");
-      return state.copyWith(loading: false);
-    });
-    await profileView();
-
-    return success;
-  }
-
-  Future<bool> passwordUpdate(ChangePasswordBody passwordUpdateBody) async {
-    bool success = false;
-    state = state.copyWith(loading: true);
-
-    final result = await repo.passwordUpdate(passwordUpdateBody);
-
-    state = result.fold((l) {
-      showErrorToast(l.error.message);
-      return state.copyWith(loading: false);
-    }, (r) {
-      showToast(r.message);
-      success = r.success;
-      ref.read(routerProvider).pop();
-      return state.copyWith(loading: false);
-    });
-
-    return success;
   }
 
   setUser(UserModel user) {

@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../features/auth/application/auth_provider.dart';
 import '../../core.dart';
@@ -12,25 +13,29 @@ class KUserAvatar extends HookConsumerWidget {
   const KUserAvatar({
     super.key,
     this.radius = 20,
+    required this.enableBorder,
+    this.isHero = true,
     this.onTap,
     this.icon,
-    this.enableBorder = false,
     this.bgColor,
-    this.isHero = true,
     this.imageFile,
+    this.imageUrl,
   });
 
   final double radius;
-  final bool enableBorder, isHero;
+  final bool enableBorder;
+  final bool isHero;
   final VoidCallback? onTap;
   final Widget? icon;
   final Color? bgColor;
   final File? imageFile;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context, ref) {
-    final isEmptyUrl = ref.watch(authProvider).user.avatar.isEmpty;
-    final url = ref.watch(authProvider).user.avatar;
+    final isEmptyUrl =
+        imageUrl.isEmptyOrNull && ref.watch(authProvider).user.avatar.isEmpty;
+    final url = imageUrl ?? ref.watch(authProvider).user.avatar;
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius + 1),
       child: KInkWell(
@@ -51,8 +56,8 @@ class KUserAvatar extends HookConsumerWidget {
                   ? isEmptyUrl
                       ? icon ??
                           Icon(
-                            Icons.person,
-                            color: Theme.of(context).colorScheme.primary,
+                            EvaIcons.person_outline,
+                            color: Theme.of(context).colorScheme.secondary,
                           )
                       : KCachedNetworkImageNoBase(
                           imageUrl: url,

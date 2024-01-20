@@ -14,6 +14,9 @@ class KShimmerWidget extends HookConsumerWidget {
     this.height,
     this.width,
     this.borderRadius,
+    this.margin,
+    this.padding,
+    this.child,
   });
 
   final Color baseColor;
@@ -21,6 +24,9 @@ class KShimmerWidget extends HookConsumerWidget {
   final double? height;
   final double? width;
   final BorderRadiusGeometry? borderRadius;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
+  final Widget? child;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final radius = borderRadius ?? BorderRadius.circular(6.r);
@@ -30,10 +36,13 @@ class KShimmerWidget extends HookConsumerWidget {
       child: Container(
         height: height ?? DefaultTextStyle.of(context).style.fontSize! * 1,
         width: width ?? double.infinity,
+        margin: margin,
+        padding: padding,
         decoration: BoxDecoration(
           color: Colors.grey,
           borderRadius: radius,
         ),
+        child: child,
       ),
     );
   }
@@ -70,6 +79,9 @@ class KSkeletonWidget extends HookConsumerWidget {
     this.borderRadius,
     this.baseColor = AppColors.bg200,
     this.highlightColor = AppColors.pastelGrey,
+    this.shape,
+    this.margin,
+    this.padding,
   });
 
   final double? height;
@@ -77,16 +89,23 @@ class KSkeletonWidget extends HookConsumerWidget {
   final BorderRadiusGeometry? borderRadius;
   final Color baseColor;
   final Color highlightColor;
+  final BoxShape? shape;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context, ref) {
-    final radius = borderRadius ?? BorderRadius.circular(6.r);
+    final radius = borderRadius ??
+        (shape == BoxShape.rectangle ? BorderRadius.circular(6.r) : null);
     return VxSkeleton(
       height: height ?? 32.h,
       width: width ?? 1.sw,
+      padding: padding,
+      margin: margin,
       borderRadius: radius,
       color: baseColor,
       shimmerColor: highlightColor,
+      shape: shape,
     );
   }
 }

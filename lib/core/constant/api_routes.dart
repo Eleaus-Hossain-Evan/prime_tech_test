@@ -25,6 +25,7 @@ class APIRouteEndpoint {
   //#<<---------------- Prime Tech ------------------>>
   static const String ALL_CATEGORY = "${API_V1}categories";
   static const String Product = "${API_V1}products";
+  static const String USER_INFO = "${API_V1}auth/profile";
   //#<<---------------- IconShopper ------------------>>
 
   static const String CONTACT_INFO = "${API_V1}contact-info";

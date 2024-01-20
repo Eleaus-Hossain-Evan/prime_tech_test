@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 import '../../../core/core.dart';
 import '../../auth/application/auth_provider.dart';
@@ -34,51 +32,68 @@ class ProfileScreen extends HookConsumerWidget {
             .profileView()
             .then((_) => refreshController.value.refreshCompleted()),
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Gap(44.h),
               //.  --- profile detail section ---
-              // const ProfilePicWidget(),
-              // Align(
-              //   alignment: Alignment.centerLeft,
-              //   child: Padding(
-              //     padding: paddingLeft10,
-              //     child: Text(
-              //       AppStrings.account,
-              //       style: CustomTextStyles.s16w600Black900,
-              //     ),
-              //   ),
-              // ),
-              gap12,
-              Container(
-                padding: padding20,
-                decoration: BoxDecoration(
-                  color: AppColors.bg100,
-                  borderRadius: BorderRadius.circular(16.r),
-                  border: Border.all(
-                    color: context.colors.primary.withOpacity(.2),
-                    width: 1.2.w,
+              const ProfilePicWidget(),
+
+              gap24,
+              const ProfileOptionsItem(
+                leading: Images.iconUserIcon,
+                title: "My Account",
+              ),
+              const KDivider(
+                thickness: 2,
+                color: AppColors.black200,
+                height: 6,
+              ),
+              const ProfileOptionsItem(
+                leading: Images.iconFileIcon,
+                leadingSize: 18,
+                leadingTitleGap: 10,
+                title: "Notification",
+              ),
+              const KDivider(
+                thickness: 2,
+                color: AppColors.black200,
+                height: 6,
+              ),
+              const ProfileOptionsItem(
+                leading: Images.iconSettingsIcon,
+                title: "Settings",
+              ),
+              const KDivider(
+                thickness: 2,
+                color: AppColors.black200,
+                height: 6,
+              ),
+              const ProfileOptionsItem(
+                leading: Images.iconChatHelp,
+                leadingSize: 22,
+                leadingTitleGap: 6,
+                title: "Help Center",
+              ),
+              const KDivider(
+                thickness: 2,
+                color: AppColors.black200,
+                height: 6,
+              ),
+              ProfileOptionsItem(
+                leading: Images.iconLogoutIcon,
+                title: AppStrings.logout,
+                trailing: const SizedBox.shrink(),
+                onTap: () => kShowFloatBottomSheet(
+                  context: context,
+                  child: _LogoutDialog(
+                    onYesPressed: () async {
+                      await ref.read(authProvider.notifier).logout();
+                      // context.go(LoginScreen.route);
+                    },
+                    onNoPressed: () {},
                   ),
-                ),
-                child: Column(
-                  children: [
-                    //.  --- logout section ---
-                    ProfileOptionsItem(
-                      leading: EvaIcons.log_out,
-                      title: AppStrings.logout,
-                      onTap: () => kShowFloatBottomSheet(
-                        context: context,
-                        child: _LogoutDialog(
-                          onYesPressed: () async {
-                            await ref.read(authProvider.notifier).logout();
-                            // context.go(LoginScreen.route);
-                          },
-                          onNoPressed: () {},
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ),
               gap18,

@@ -322,11 +322,13 @@ class KFilledButton extends HookConsumerWidget {
             TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
+              fontFamily: GoogleFonts.taviraj().fontFamily,
+              letterSpacing: .8,
             ),
         foregroundColor: foregroundColor ?? AppColors.bg200,
         backgroundColor: isSecondary ? AppColors.secondary : backgroundColor,
         // fixedSize: size ?? const Size.fromHeight(40),
-        minimumSize: size,
+        minimumSize: size ?? const Size.fromHeight(43),
         padding: padding,
         shape: RoundedRectangleBorder(
           borderRadius: borderRadius ?? BorderRadius.circular(8.r),
