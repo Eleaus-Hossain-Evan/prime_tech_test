@@ -34,7 +34,7 @@ extension TextStyleHelpers on TextStyle {
   TextStyle letterSpace(double value) => copyWith(letterSpacing: value);
 
   TextStyle font(double value) => copyWith(fontSize: value);
-  TextStyle color(Color value) => copyWith(color: value);
+  TextStyle withColor(Color value) => copyWith(color: value);
   TextStyle colorPrimary() => copyWith(color: AppColors.primary);
   TextStyle colorSecondary() => copyWith(color: AppColors.secondary);
   TextStyle colorTertiary() => copyWith(color: AppColors.tertiary);

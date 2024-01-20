@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../../core/core.dart';
-import '../../../auth/application/auth_provider.dart';
 import '../../application/profile_provider.dart';
 
 class ProfilePicWidget extends HookConsumerWidget {
@@ -17,7 +16,6 @@ class ProfilePicWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authProvider);
     final profile = ref.watch(getUserInfoProvider);
 
     return KInkWell(
@@ -35,8 +33,8 @@ class ProfilePicWidget extends HookConsumerWidget {
                   imageUrl: data.avatar,
                 ),
                 orElse: () => KSkeletonWidget(
-                  height: 84.w,
-                  width: 84.w,
+                  height: 86.w,
+                  width: 86.w,
                   shape: BoxShape.circle,
                 ),
               ),

@@ -14,4 +14,5 @@ class Images {
   static const String iconFacebook2 = 'assets/icons/facebook-2.png';
   static const String iconGoogleIcon = 'assets/icons/google-icon.png';
   static const String iconTwitter3 = 'assets/icons/twitter-3.png';
+  static const String svgSettings = 'assets/svg/settings.svg';
 }

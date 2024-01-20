@@ -16,5 +16,6 @@ void main() {
     expect(File(Images.iconFacebook2).existsSync(), isTrue);
     expect(File(Images.iconGoogleIcon).existsSync(), isTrue);
     expect(File(Images.iconTwitter3).existsSync(), isTrue);
+    expect(File(Images.svgSettings).existsSync(), isTrue);
   });
 }

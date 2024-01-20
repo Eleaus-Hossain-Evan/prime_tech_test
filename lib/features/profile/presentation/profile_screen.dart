@@ -6,6 +6,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../core/core.dart';
 import '../../auth/application/auth_provider.dart';
+import '../application/profile_provider.dart';
 import 'widgets/picture_pic_widget.dart';
 import 'widgets/profile_option_item.dart';
 
@@ -24,12 +25,21 @@ class ProfileScreen extends HookConsumerWidget {
         useRef(RefreshController(initialLoadStatus: LoadStatus.canLoading));
 
     return Scaffold(
-      appBar: KAppBar(titleText: AppStrings.profile),
+      appBar: KAppBar(
+        titleText: AppStrings.profile,
+        titleTextStyle:
+            ContentTextStyle.headline6.withColor(AppColors.black600),
+        actions: [
+          Images.svgSettings.assetSvg(width: 24, height: 24),
+          const SizedBox(
+            width: 30,
+          )
+        ],
+      ),
       body: SmartRefresher(
         controller: refreshController.value,
         onRefresh: () => ref
-            .refresh(authProvider.notifier)
-            .profileView()
+            .refresh(getUserInfoProvider.future)
             .then((_) => refreshController.value.refreshCompleted()),
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.w),

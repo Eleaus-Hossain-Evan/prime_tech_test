@@ -79,7 +79,7 @@ class KSkeletonWidget extends HookConsumerWidget {
     this.borderRadius,
     this.baseColor = AppColors.bg200,
     this.highlightColor = AppColors.pastelGrey,
-    this.shape,
+    this.shape = BoxShape.rectangle,
     this.margin,
     this.padding,
   });
@@ -89,7 +89,7 @@ class KSkeletonWidget extends HookConsumerWidget {
   final BorderRadiusGeometry? borderRadius;
   final Color baseColor;
   final Color highlightColor;
-  final BoxShape? shape;
+  final BoxShape shape;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
 
