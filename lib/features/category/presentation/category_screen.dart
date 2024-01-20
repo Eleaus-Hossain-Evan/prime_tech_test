@@ -22,11 +22,6 @@ class CategoryScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: KAppBar(
         titleText: 'Categories',
-        // leading:
-        //     Images.iconProfile.assetImage(height: 24, width: 20).onInkTap(() {
-        //   context.push(ProfileScreen.route);
-        // }).pSymmetric(h: 18, v: 16),
-
         leading: IconButton(
           icon: Images.iconProfile.assetImage(height: 24, width: 20),
           onPressed: () {
